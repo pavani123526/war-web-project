@@ -26,11 +26,12 @@ pipeline {
                 withSonarQubeEnv('sonarqube-server') { // 'SonarQube' should match Jenkins Global Tool Configuration name
                  sh '''   
                 
-                  mvn sonar:sonar \
-                  -Dsonar.projectKey=pavani123-456_ruthvikanavishna 
-                  -Dsonar.organization=pavani123 
-                  -Dsonar.host.url=http://sonarcloud.io
-                  -Dsonar.login=${SONARQUBE_CREDENTIALS}
+                 mvn sonar:sonar \
+                  -Dsonar.projectKey=mahesh-keyy_pavani \ 
+                  -Dsonar.organization=mahesh \
+                  -Dsonar.host.url=http://sonarcloud.io \
+                  -Dsonar.login=$SONARQUBE_CREDENTIALS
+
                  '''
                 }
             }
