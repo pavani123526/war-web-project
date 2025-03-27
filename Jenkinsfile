@@ -1,38 +1,39 @@
 pipeline {
     agent any
-    
+
     environment {
-        SONARQUBE_URL = "http://localhost:9000"  // Update with your SonarQube URL
-        SONARQUBE_CREDENTIALS = "sonarqube" // Jenkins credentials ID for SonarQube token
+        SONARQUBE_SERVER = 'sonarqube-server'
     }
 
     stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/pavani123526/war-web-project.git'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo "Building the project..."
                 sh 'mvn clean package'
             }
         }
 
         stage('Test') {
             steps {
-                echo "Running tests..."
                 sh 'mvn test'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonarqube-server') { // 'SonarQube' should match Jenkins Global Tool Configuration name
-                 sh '''   
-                
-                 mvn sonar:sonar \
-                  -Dsonar.projectKey=mahesh-keyy_pavani \ 
-                  -Dsonar.organization=mahesh \
-                  -Dsonar.host.url=http://sonarcloud.io \
-                  -Dsonar.login=$SONARQUBE_CREDENTIALS
-
-                 '''
+                withSonarQubeEnv(SONARQUBE_SERVER) {
+                    sh '''
+                    mvn sonar:sonar \
+                        -Dsonar.projectKey=mahesh-keyy_pavani \
+                        -Dsonar.organization=mahesh \
+                        -Dsonar.host.url=https://sonarcloud.io \
+                        -Dsonar.login=$SONARQUBE_CREDENTIALS
+                    '''
                 }
             }
         }
@@ -48,4 +49,5 @@ pipeline {
         }
     }
 }
+
 
