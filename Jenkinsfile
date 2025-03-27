@@ -28,7 +28,7 @@ pipeline {
                 
                   mvn sonar:sonar \
                   -Dsonar.projectKey=pavani123-456_ruthvikanavishna \
-                  -Dsonar.organization=pavani123 \
+                  -Dsonar.organization=pavani123-456 \
                   -Dsonar.host.url=http://sonarcloud.io\
                   -Dsonar.login=${SONARQUBE_CREDENTIALS}
                  '''
