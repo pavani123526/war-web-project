@@ -24,7 +24,14 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube-server') { // 'SonarQube' should match Jenkins Global Tool Configuration name
-                    sh 'mvn sonar:sonar -Dsonar.login=$SONARQUBE_CREDENTIALS'
+                 sh '''   
+                
+                  mvn sonar:sonar \
+                  -Dsonar.projectKey=pavani123-456 \
+                  -Dsonar.organization=pavani123 \
+                  -Dsonar.host.url=http://sonarcloud.io\
+                  -Dsonar.login=${SONARQUBE_CREDENTIALS}
+                 '''
                 }
             }
         }
